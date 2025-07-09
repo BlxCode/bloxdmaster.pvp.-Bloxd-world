@@ -1,0 +1,1 @@
+setDefaultMobSetting(mobType, setting, value)
