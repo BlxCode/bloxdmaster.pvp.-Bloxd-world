@@ -4,11 +4,11 @@ playerId = myId;
 api.clearInventory(playerId)
 api.giveItem(playerId, "Gold Sword", 10);
 
-api.setItemSlot(playerId, 46, 'Diamond Helmet',1,undefined,true);
-api.setItemSlot(playerId, 47, 'Diamond Chestplate',1,undefined,true);
-api.setItemSlot(playerId, 48, 'Diamond Gauntlets',1,undefined,true);
-api.setItemSlot(playerId, 49, 'Diamond Leggings',1,undefined,true);
-api.setItemSlot(playerId, 50, 'Diamond Boots',1,undefined,true);
+api.setItemSlot(playerId, 46, 'Diamond Helmet',1,{},true);
+api.setItemSlot(playerId, 47, 'Diamond Chestplate',1,{},true);
+api.setItemSlot(playerId, 48, 'Diamond Gauntlets',1,{},true);
+api.setItemSlot(playerId, 49, 'Diamond Leggings',1,{},true);
+api.setItemSlot(playerId, 50, 'Diamond Boots',1,{},true);
 
 
 if (onQueue == false){
@@ -33,6 +33,8 @@ api.setStandardChestItemSlot([1000, 1009, 1008],0, 'Dirt', 1, undefined, {custom
     if (queue.length == 2){
         onQueue = false;
       if(queue[0] == myId && queue[1] == myId){
+          api.setPosition(myId, 1000.5, 1000, 1000.5);
+  api.setCameraDirection(myId, [0, 0, 1007.5]);
 api.sendMessage(myId, "You are in a 1v1 with yourself. This is not allowed.",{color:"red"});
 queue.splice(1,1);
 queue.splice(0,1);
@@ -49,8 +51,8 @@ queue.splice(0,1);
         }
         api.setPosition(queue[0], P1posX, 510, 1019.5);
         api.setPosition(queue[1], P2posX, 510, 1003.5);
-        api.setCameraDirection(queue[0], [P2posX, 500, 1003.5]);
-        api.setCameraDirection(queue[1], [P1posX, 500, 1019.5]);
+        api.setCameraDirection(queue[0], [0, 0, 1003.5]);
+        api.setCameraDirection(queue[1], [0, 0, 1019.5]);
 
        api.setBlockRect([x,500,1000.5],[xOtherSide,500,1021.5], 'Smooth Stone');
  playersIn1v1.push(queue[0]);
