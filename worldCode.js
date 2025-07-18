@@ -711,7 +711,7 @@ function onPlayerJoin(playerId) {
     playerId,
     "Hello " +
       api.getEntityName(playerId) +
-      "! Welcome to this advanced PvP world developed by BloxdMaster, with the intent of having fun, while practicing, learning, and fighting in a safe, and comfterable enviroment. Please respect all the bloxd rules like no toxicity, being nice to others, and no actions that will make someone else uncomfterable. On behaf of my team (myself only), with credits to s0nicblxd (Discord) for helping me figure out how to make custom names, WELCOME TO BLOXDMASTER.PVP.! ");
+      "! Welcome to this advanced PvP world developed by BloxdMaster, with the intent of having fun, while practicing, learning, and fighting in a safe, and comfterable enviroment. Please respect all the bloxd rules like no toxicity, being nice to others, and no actions that will make someone else uncomfterable. On behaf of my team (myself only), with credits to s0nicblxd (Discord) for helping me figure out how to make custom names. Ranks or Rank does not determine the player's skill, it's calculated based on your Kills and Deaths, again it's not the player's skill level. WELCOME TO BLOXDMASTER.PVP.! ");
   
   api.setItemSlot(playerId, 46, "Diamond Helmet", 1, {}, true);
   api.setItemSlot(playerId, 47, "Diamond Chestplate", 1, {}, true);
