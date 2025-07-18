@@ -635,7 +635,49 @@ var P1posZ = 1019.5;
 var P2posX;
 var P1posX;
 var P2posZ = 1003.5;
+function getRank(playerId) {
+  let winRate = api.getMoonstoneChestItemSlot(
+    Number(
+      api.getMoonstoneChestItemSlot(playerId, 0).attributes.customDisplayName
+    ) /
+      Number(
+        api.getMoonstoneChestItemSlot(playerId, 1).attributes.customDisplayName
+      )
+  );
 
+  let rank;
+  let rankColor;
+  let rankEmoji;
+  if (winRate != NaN) {
+    if (winRate < 0.5) {
+      rank = "Rookie";
+      rankColor = "#6a4b3b";
+      rankEmoji = "pile of poo";
+    }
+    if (winRate < 1) {
+      rank = "Decent";
+      rankColor = "#a1c101";
+      rankEmoji = "frog";
+    }
+    if (winRate < 1.5) {
+      rank = "Average";
+      rankColor = "#19c101";
+      rankEmoji = "turtle";
+    }
+    if (winRate < 2.5) {
+      rank = "Pro";
+      rankColor = "#c10101";
+      rankEmoji = "2nd place medal";
+    }
+    if (winRate > 2.5) {
+      rank = "Insane";
+      rankColor = "#ab01c1";
+      rankEmoji = "crown";
+    }
+
+    return { rank: rank, rankColor: rankColor, rankEmoji: rankEmoji };
+  }
+}
 function onPlayerJoin(playerId) {
   let killCount;
   let deathCount;
@@ -658,11 +700,8 @@ function onPlayerJoin(playerId) {
     });
 
     // Win Rate
-    api.setMoonstoneChestItemSlot(playerId, 3, "Dirt", 1, {
-      customDisplayName: "0",
-    });
-    winRate = api.getMoonstoneChestItemSlot(playerId, 3).attributes
-      .customDisplayName;
+
+    winRate = 0;
     killCount = api.getMoonstoneChestItemSlot(playerId, 0).attributes
       .customDisplayName;
     deathCount = api.getMoonstoneChestItemSlot(playerId, 1).attributes
@@ -677,30 +716,33 @@ function onPlayerJoin(playerId) {
     if (winRate != NaN) {
       if (winRate < 0.5) {
         rank = "Rookie";
-        rankColor = "#6a4b3b"
-        rankEmoji="pile of poo";
+        rankColor = "#6a4b3b";
+        rankEmoji = "pile of poo";
       }
       if (winRate < 1) {
         rank = "Decent";
-        rankColor = "#a1c101"
-        rankEmoji = "frog"
+        rankColor = "#a1c101";
+        rankEmoji = "frog";
       }
       if (winRate < 1.5) {
         rank = "Average";
-        rankColor = "#19c101"
-        rankEmoji="turtle"
+        rankColor = "#19c101";
+        rankEmoji = "turtle";
       }
       if (winRate < 2.5) {
         rank = "Pro";
-        rankColor = "#c10101"
-        rankEmoji="2nd place medal"
+        rankColor = "#c10101";
+        rankEmoji = "2nd place medal";
       }
       if (winRate > 2.5) {
         rank = "Insane";
         rankColor = "#ab01c1";
-        rankEmoji="crown"
+        rankEmoji = "crown";
       }
-      api.setClientOptions(playerId,{RightInfoText : `Rank: ${rank}`,middleTextLower : rank});
+      api.setClientOptions(playerId, {
+        RightInfoText: `Rank: ${rank}`,
+        middleTextLower: rank,
+      });
     }
   }
   api.setPosition(playerId, 999.5, 996, 999.5);
@@ -711,14 +753,15 @@ function onPlayerJoin(playerId) {
     playerId,
     "Hello " +
       api.getEntityName(playerId) +
-      "! Welcome to this advanced PvP world developed by BloxdMaster, with the intent of having fun, while practicing, learning, and fighting in a safe, and comfterable enviroment. Please respect all the bloxd rules like no toxicity, being nice to others, and no actions that will make someone else uncomfterable. On behaf of my team (myself only), with credits to s0nicblxd (Discord) for helping me figure out how to make custom names. Ranks or Rank does not determine the player's skill, it's calculated based on your Kills and Deaths, again it's not the player's skill level. WELCOME TO BLOXDMASTER.PVP.! ");
-  
+      "! Welcome to this advanced PvP world developed by BloxdMaster, with the intent of having fun, while practicing, learning, and fighting in a safe, and comfterable enviroment. Please respect all the bloxd rules like no toxicity, being nice to others, and no actions that will make someone else uncomfterable. On behaf of my team (myself only), with credits to s0nicblxd (Discord) for helping me figure out how to make custom names. Ranks or Rank does not determine the player's skill, it's calculated based on your Kills and Deaths,  again it's not the player's skill level. WELCOME TO BLOXDMASTER.PVP.! <br> Type !help in the chat for avaliable commands. "
+  );
+
   api.setItemSlot(playerId, 46, "Diamond Helmet", 1, {}, true);
   api.setItemSlot(playerId, 47, "Diamond Chestplate", 1, {}, true);
   api.setItemSlot(playerId, 48, "Diamond Gauntlets", 1, {}, true);
   api.setItemSlot(playerId, 49, "Diamond Leggings", 1, {}, true);
   api.setItemSlot(playerId, 50, "Diamond Boots", 1, {}, true);
-// leaderboard
+  // leaderboard
   api.setClientOptions(playerId, {
     lobbyLeaderboardInfo: {
       pfp: {
@@ -742,17 +785,17 @@ function onPlayerJoin(playerId) {
         displayName: "💯 K/D Ratio",
         sortPriority: 5,
       },
-      rank:{
-        displayName:"💪 Rank",
-        sortPriority:6
-      }
+      rank: {
+        displayName: "💪 Rank",
+        sortPriority: 6,
+      },
     },
   });
 
   api.setTargetedPlayerSettingForEveryone(
     playerId,
     "lobbyLeaderboardValues",
-    { kills: killCount, deaths: deathCount, winRate: winRate,rank:rank },
+    { kills: killCount, deaths: deathCount, winRate: winRate, rank: rank },
     true
   );
 }
@@ -764,6 +807,15 @@ function onPlayerChat(myId, message) {
       { str: "[", style: { color: "#FED207" } },
       { icon: "wrench", style: { color: "#FED207" } },
       { str: " Owners] ", style: { color: "#FED207" } },
+      { str: "[", style: { color: getRank(myId).rankColor } },
+      {
+        icon: getRank(myId).rankEmoji,
+        style: { color: getRank(myId).rankColor },
+      },
+      {
+        str: `${getRank(myId).rank}]`,
+        style: { color: getRank(myId).rankColor },
+      },
       api.getEntityName(myId),
       { str: ": " + message, style: { color: "#FFFFFF" } },
     ]);
@@ -805,14 +857,29 @@ function onPlayerChat(myId, message) {
       }
     }
   } else {
-    api.broadcastMessage([
-      { str: "[", style: { color: "#FED207" } },
-      { icon: "wrench", style: { color: "#FED207" } },
-      { str: " Owners] ", style: { color: "#FED207" } },
-      api.getEntityName(myId),
-      ": ",
-      message,
-    ]);
+    if (message.startsWith("!")) {
+      if (message == "!help") {
+        api.sendMessage(
+          myId,
+          "Commands: <br> <ul><li>!help : Show all commands and what they're for</li><li>!stats <? Player Name> : Shows their stats</li><li>!duelReq <Player Name> : Request a duel with a player </li><li>!duelAcc : Accepts a duel with the latest person who requested you</li></ul>"
+        );
+      }
+    } else {
+      api.broadcastMessage([
+        { str: "[", style: { color: getRank(myId).rankColor } },
+        {
+          icon: getRank(myId).rankEmoji,
+          style: { color: getRank(myId).rankColor },
+        },
+        {
+          str: `${getRank(myId).rank}]`,
+          style: { color: getRank(myId).rankColor },
+        },
+        api.getEntityName(myId),
+        ": ",
+        message,
+      ]);
+    }
   }
 
   return null;
@@ -856,6 +923,7 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
       kills: noCaresKillCount,
       deaths: noCaresDeathCount,
       winRate: noCaresKDRatio,
+      rank: getRank(noCare),
     },
     true
   );
@@ -863,7 +931,12 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
   api.setTargetedPlayerSettingForEveryone(
     idio,
     "lobbyLeaderboardValues",
-    { kills: idiosKillCount, deaths: idiosDeathCount, winRate: idiosKDRatio },
+    {
+      kills: idiosKillCount,
+      deaths: idiosDeathCount,
+      winRate: idiosKDRatio,
+      rank: getRank(idio),
+    },
     true
   );
 
