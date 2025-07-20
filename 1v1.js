@@ -40,21 +40,23 @@ queue.splice(1,1);
 queue.splice(0,1);
 }else if(queue[0] == myId || queue[1] == myId){
       if(api.isMobile(queue[0])){
-        api.sendMessage(queue[0], "You are now in a 1v1 with " + api.getEntityName(queue[1]) + ", [📱]. Good luck!");
+        api.sendMessage(queue[0], "You are now in a 1v1 with " + api.getEntityName(queue[1]) + ", [Mobile]["+getRank(queue[1]).rank+"]. Good luck!");
       }else{
-        api.sendMessage(queue[0], "You are now in a 1v1 with " + api.getEntityName(queue[1]) + ", [💻]. Good luck!");
+        api.sendMessage(queue[0], "You are now in a 1v1 with " + api.getEntityName(queue[1]) +  ", [PC]["+getRank(queue[1]).rank+"]. Good luck!");
       }
         if(api.isMobile(queue[1])){
-        api.sendMessage(queue[1], "You are now in a 1v1 with " + api.getEntityName(queue[0]) + ", [📱]. Good luck!");
+        api.sendMessage(queue[1], "You are now in a 1v1 with " + api.getEntityName(queue[0]) + ", [Mobile]["+getRank(queue[0]).rank+"]. Good luck!");
         }else{
-            api.sendMessage(queue[1], "You are now in a 1v1 with " + api.getEntityName(queue[0]) + ", [💻]. Good luck!");
+            api.sendMessage(queue[1], "You are now in a 1v1 with " + api.getEntityName(queue[0]) + ", [PC]["+getRank(queue[0]).rank+"]. Good luck!");
         }
         api.setPosition(queue[0], P1posX, 510, 1019.5);
         api.setPosition(queue[1], P2posX, 510, 1003.5);
+        api.applyEffect(queue[0], "Slowness C", 5, {});
+             api.applyEffect(queue[1], "Slowness C", 5, {});
         api.setCameraDirection(queue[0], [0, 0, 1003.5]);
         api.setCameraDirection(queue[1], [0, 0, 1019.5]);
 
-       api.setBlockRect([x,500,1000.5],[xOtherSide,500,1021.5], 'Smooth Stone');
+       api.setBlockRect([x,500,1000.5],[xOtherSide,500,1021.5], 'Grass Block');
  playersIn1v1.push(queue[0]);
         playersIn1v1.push(queue[1]);
         queue.splice(1,1);
