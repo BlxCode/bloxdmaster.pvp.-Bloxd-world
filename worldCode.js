@@ -1,3 +1,5 @@
+// Comment 'var api;' on production
+var api;
 // GNU v3.0 License BLOXDMASTER.PVP. MADE BY BLOXDMASTER, DO NOT DELEATE
 // Initialize variables
 var onQueue = false;
@@ -281,7 +283,7 @@ function onPlayerChat(myId, message) {
         );
       }
       if (message.startsWith("!duelReq")) {
-        let otherPlayeId = message.replace("!duelReq ", "");
+        let otherPlayerId = message.replace("!duelReq ", "");
         if (!Number.isNaN(api.getPlayerId(otherPlayerId))) {
           api.sendMessage(
             myId,
@@ -290,9 +292,9 @@ function onPlayerChat(myId, message) {
           );
           if (duelPendings.length == duelRequesters.length) {
             duelRequesters.push(myId);
-            duelPendings.push(otherPlayeId);
+            duelPendings.push(otherPlayerId);
             api.sendMessage(
-              api.getPlayerId(otherPlayeId),
+              api.getPlayerId(otherPlayerId),
               `${myId} requested a duel, type !duelAcc to accept a duel`,
               { color: "red" }
             );
@@ -315,10 +317,12 @@ function onPlayerChat(myId, message) {
           );
         }
       }
-      if (message == "!duelAcc"&&duelPendings.includes(myId)) {
-        
-      }else{
-        api.sendMessage(myId,"You are friendless so no one requested to duel you 💀");
+      if (message == "!duelAcc" && duelPendings.includes(myId)) {
+      } else {
+        api.sendMessage(
+          myId,
+          "You are friendless so no one requested to duel you 💀"
+        );
       }
     } else {
       api.broadcastMessage([
@@ -376,7 +380,7 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
       winRate: noCaresKDRatio,
       rank: {
         str: getRank(noCare).rank,
-        style: { color: getRank(noCare).color },
+        style: { color: getRank(noCare).rankColor },
       },
     },
     true
@@ -389,9 +393,9 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
         Games Played: ${Number(noCaresKillCount) + Number(noCaresDeathCount)}
         Rank: ${{
           str: getRank(noCare).rank,
-          style: { color: getRank(noCare).color },
+          style: { color: getRank(noCare).rankColor },
         }}
-        K/D Ratio: ${winRate}
+        K/D Ratio: ${noCaresKDRatio}
         `,
     canSeeNametagsThroughWalls: false,
   });
@@ -400,14 +404,12 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
         Stats:
         Kills: ${idiosKillCount}
         Deaths: ${idiosDeathCount}
-        Games Played: ${
-          Number(idiosKillCountkillCount) + Number(idiosDeathCount)
-        }
+        Games Played: ${Number(idiosKillCount) + Number(idiosDeathCount)}
         Rank: ${{
           str: getRank(idio).rank,
-          style: { color: getRank(idio).color },
+          style: { color: getRank(idio).rankColor },
         }}
-        K/D Ratio: ${winRate}
+        K/D Ratio: ${idiosKDRatio}
         `,
     canSeeNametagsThroughWalls: false,
   });
@@ -418,7 +420,10 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
       kills: idiosKillCount,
       deaths: idiosDeathCount,
       winRate: idiosKDRatio,
-      rank: { str: getRank(idio).rank, style: { color: getRank(idio).color } },
+      rank: {
+        str: getRank(idio).rank,
+        style: { color: getRank(idio).rankColor },
+      },
     },
     true
   );
