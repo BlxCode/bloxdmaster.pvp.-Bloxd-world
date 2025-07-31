@@ -1,0 +1,2 @@
+# bloxdmaster.pvp. Bloxd World ⚔️
+If you wish to use / modify my code, make sure to give me **credit** in some way, where every player can see in first glance when they join the world for the first, or second time. Also, please make sure that you find, then delete or change ```api.isBot = "bloxdmaster.pvp.";``` to either your own world name, and create a chest in the exact coordinates of ``(PI with 5 decimal palces * 100), ((square root of 6031) * 1000), and the 
