@@ -1,4 +1,4 @@
-api.setPosition(myId, 1003.5, 1008, 993.5);
+api.setPosition(myId, 972, 1000, 1001);
 playerId = myId;
 api.clearInventory(playerId);
 api.giveItem(playerId, "Diamond Sword", 10);
@@ -64,7 +64,7 @@ if (onQueue == false) {
   if (queue.length == 2) {
     onQueue = false;
     if (queue[0] == myId && queue[1] == myId) {
-      api.setPosition(myId, 1000.5, 1000, 1000.5);
+      api.setPosition(myId, 972, 1000, 1001);
       api.setCameraDirection(myId, [0, 0, 1007.5]);
       api.sendMessage(
         myId,

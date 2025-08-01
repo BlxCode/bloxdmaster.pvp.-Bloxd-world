@@ -1,5 +1,6 @@
+//!todo: Comment lines 2, 3 on production
 var api;
-var myId;
+var myId = "Lorem ipsum dolor sit amet.";
 //Moonstone Chest Item Slot 0: Kills, 1: Deaths, 2: Coins
 // GNU v3.0 License BLOXDMASTER.PVP. MADE BY BLOXDMASTER, DO NOT DELEATE
 // Initialize variables
@@ -9,11 +10,11 @@ var playersIn1v1 = [];
 var P1posZ = 1019.5;
 var P2posX;
 var duelRequesters = [
-  'Subscribe to @BloxdMaster! (Placeholder so that my game wont create errors, if u see this it is because that there is a bug in the dual request / accept code system, yippeeee more bugs to fix :( if u see this tho plz tell me with a book in one of the feedback mailboxes, and plz make the title: "Bug Plz Fix" otherwize i will ignore it.',
+  'Subscribe to @BloxdMaster!',
 ];
 var P1posX;
 var duelPendings = [
-  "Lorem Ipsum etc etc Subscribe to @BloxdMaster plz im so handsome and smart and plz smash that like button, and share this every other people yay yippe if u see this idk wat to do it's probably because im dumb and the duel request / accept system broke or i just forgot that bloxd likes to send rrandom stuff into the chat, but if u see it anyway idc",
+  "Lorem Ipsum",
 ];
 var P2posZ = 1003.5;
 function getRank(playerId) {
@@ -205,7 +206,7 @@ function onPlayerChat(myId, message) {
           style: { color: getRank(myId).rankColor },
         },
         {
-          str: `${getRank(myId).rank}] `,
+          str: ` ${getRank(myId).rank}] `,
           style: { color: getRank(myId).rankColor },
         },
         api.getEntityName(myId),

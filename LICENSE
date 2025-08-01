@@ -1,4 +1,4 @@
-                    GNU GENERAL PUBLIC LICENSE
+ #                   GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
@@ -620,11 +620,17 @@ copy of the Program in return for a fee.
 
                      END OF TERMS AND CONDITIONS
 
-           nd.
-
-   
+# Other License Agreements
+    This license applies to the code in this repository, unless otherwise stated.
+    If you wish to use / modify my code, make sure to give me **credit**
+    in some way, where every player can see in first glance when they join the world
+    for the first, or second time. Also, please make sure that you find,
+    then delete or change ```api.isBot = "bloxdmaster.pvp.";``` to either your own world name,
+    and create a chest in the exact coordinates of ``(PI with 5 decimal palces * 100), ((square root of 6031) * 1000), (623*PI) all removing the decimal point`` with exactly 3 Emerald Blocks with the display name of 'bloxdmaster.pvp.' in item slot number (square root of 16).
+    This is to prevent people from using my code without giving me credit.
+    If you do not do this, I don't think you want to know...
 
     bloxdmaster.pvp. bloxd world (C) 2025  Blxm
-    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+    This program comes with ABSOLUTELY NO WARRANTY;
     This is free software, and you are welcome to redistribute it
     under certain conditions.
