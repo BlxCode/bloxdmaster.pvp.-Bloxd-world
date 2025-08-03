@@ -1,6 +1,7 @@
 //!todo: Comment lines 2, 3 on production
 var api;
 var myId = "Lorem ipsum dolor sit amet.";
+// Visit GITHUB PAGE TO COPY
 //Moonstone Chest Item Slot 0: Kills, 1: Deaths, 2: Coins
 // GNU v3.0 License BLOXDMASTER.PVP. MADE BY BLOXDMASTER, DO NOT DELEATE
 // Initialize variables
@@ -9,13 +10,9 @@ var queue = [];
 var playersIn1v1 = [];
 var P1posZ = 1019.5;
 var P2posX;
-var duelRequesters = [
-  'Subscribe to @BloxdMaster!',
-];
+var duelRequesters = ["Subscribe to @BloxdMaster!"];
 var P1posX;
-var duelPendings = [
-  "Lorem Ipsum",
-];
+var duelPendings = ["Lorem Ipsum"];
 var P2posZ = 1003.5;
 function getRank(playerId) {
   let killCount = api.getMoonstoneChestItemSlot(playerId, 0).attributes
@@ -121,10 +118,10 @@ function onPlayerChat(myId, message) {
           })
         );
       }
-      if(message.includes("!setCoins")){
+      if (message.includes("!setCoins")) {
         message.replace("!setCoins ");
-        console.log("You now have"+message.replace("!setCoins ")+"Coins.");
-        api.setMoonstoneChestItemSlot(myId,2)
+        console.log("You now have" + message.replace("!setCoins ") + "Coins.");
+        api.setMoonstoneChestItemSlot(myId, 2);
       }
     } else {
       api.broadcastMessage([
@@ -363,9 +360,9 @@ function onPlayerLeave(playerId) {
 function onPlayerJoin(playerId) {
   let killCount;
   let deathCount;
-  let rank;
-  let rankColor;
-  let rankEmoji;
+  let ranks;
+  let rankColors;
+  let rankEmojis;
   api.setClientOptions(playerId, { secsToRespawn: 0, maxAuraLevel: 0 });
   let winRate;
   if (
@@ -398,34 +395,11 @@ function onPlayerJoin(playerId) {
       .customDisplayName;
     winRate = killCount / deathCount;
     // rank
-    if (!Number.isNaN(winRate)) {
-      if (winRate < 0.5) {
-        rank = "Rookie";
-        rankColor = "#6a4b3b";
-        rankEmoji = "pile of poo";
-      }
-      if (winRate < 1) {
-        rank = "Decent";
-        rankColor = "#a1c101";
-        rankEmoji = "frog";
-      }
-      if (winRate < 1.5) {
-        rank = "Average";
-        rankColor = "#19c101";
-        rankEmoji = "turtle";
-      }
-      if (winRate < 2.5) {
-        rank = "Pro";
-        rankColor = "#c10101";
-        rankEmoji = "2nd place medal";
-      }
-      if (winRate > 2.5) {
-        rank = "Insane";
-        rankColor = "#ab01c1";
-        rankEmoji = "crown";
-      }
-      api.setClientOptions(playerId, {
-        RightInfoText: `bloxdmaster.pvp.
+    ranks = getRank(playerId).rank;
+    rankColors = getRank(playerId).rankColor;
+    rankEmojis = getRank(playerId).rankEmoji;
+    api.setClientOptions(playerId, {
+      RightInfoText: `bloxdmaster.pvp.
         Stats:
         Kills: ${killCount}
         Deaths: ${deathCount}
@@ -433,9 +407,15 @@ function onPlayerJoin(playerId) {
         Rank: ${rank}
         K/D Ratio: ${winRate}
         `,
-        canSeeNametagsThroughWalls: false,
-      });
-    }
+      canSeeNametagsThroughWalls: false,
+    });
+  }
+
+  if (api.isPlayer != api.isBot) {
+    api.kickPlayer(
+      myId,
+      "Copycat world 💀 the real world is 'bloxdmaster.pvp.'"
+    );
   }
   api.setPosition(playerId, 999.5, 996, 999.5);
   api.setCameraDirection(playerId, [0, 0, 10.5]);
@@ -445,15 +425,11 @@ function onPlayerJoin(playerId) {
     playerId,
     "Hello " +
       api.getEntityName(playerId) +
-      `! Welcome to this advanced PvP world developed by BloxdMaster, with the intent of having fun, while practicing, learning, and fighting in a safe, and comfterable enviroment. 
-      Please respect all the bloxd rules like no toxicity, being nice to others, and no actions that will make someone else uncomfterable. On behaf of my team (myself only), 
-      with credits to s0nicblxd (Discord) for helping me figure out how to make custom names. 
-      Ranks or Rank does not determine the player's skill, it's calculated based on your Kills and Deaths, again it's not the player's skill level. Anyways, WELCOME TO BLOXDMASTER.PVP.! 
-      If you have any questions, suggestions, bug reports (please don't report timeout, or interupted errors, just ignore them), or feedback, please use the feedback mailboxes in the lobby, 
-      or contact me on Discord at "apersonintheworld.".
+      `!
+
       Type !help in the chat for avaliable commands. `
   );
-  
+
   api.setItemSlot(playerId, 46, "Diamond Helmet", 1, {}, true);
   api.setItemSlot(playerId, 47, "Diamond Chestplate", 1, {}, true);
   api.setItemSlot(playerId, 48, "Diamond Gauntlets", 1, {}, true);
