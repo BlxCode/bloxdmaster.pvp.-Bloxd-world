@@ -1,1 +1,0 @@
-setDefaultMobSetting(mobType, setting, value)
