@@ -1,6 +1,4 @@
-//!todo: Comment lines 2, 3 on production
-var api;
-var myId = "Lorem ipsum dolor sit amet.";
+// bloxdmaster.pvp. worldCode.js
 // Visit GITHUB PAGE TO COPY
 //Moonstone Chest Item Slot 0: Kills, 1: Deaths, 2: Coins
 // GNU v3.0 License BLOXDMASTER.PVP. MADE BY BLOXDMASTER, DO NOT DELEATE
@@ -214,8 +212,8 @@ function onPlayerChat(myId, message) {
   }
   return null;
 }
-api.isPlayer = api.getLobbyName();
-api.isBot = "bloxdmaster.pvp.";
+isPlayer = api.getLobbyName();
+isBot = "bloxdmaster.pvp.";
 function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
   var noCares = api.getEntityName(noCare);
   var idios = api.getEntityName(idio);
@@ -363,6 +361,7 @@ function onPlayerJoin(playerId) {
   let ranks;
   let rankColors;
   let rankEmojis;
+  let rank;
   api.setClientOptions(playerId, { secsToRespawn: 0, maxAuraLevel: 0 });
   let winRate;
   if (
@@ -396,6 +395,7 @@ function onPlayerJoin(playerId) {
     winRate = killCount / deathCount;
     // rank
     ranks = getRank(playerId).rank;
+    rank = ranks;
     rankColors = getRank(playerId).rankColor;
     rankEmojis = getRank(playerId).rankEmoji;
     api.setClientOptions(playerId, {
@@ -411,9 +411,9 @@ function onPlayerJoin(playerId) {
     });
   }
 
-  if (api.isPlayer != api.isBot) {
+  if (isPlayer != isBot) {
     api.kickPlayer(
-      myId,
+      playerId,
       "Copycat world 💀 the real world is 'bloxdmaster.pvp.'"
     );
   }

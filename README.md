@@ -1,8 +1,4 @@
-<style>
-  h1,h2,h3{
-    font-weight:600 !important;
-  }
-  </style>
+
 
 # ⚔️ bloxdmaster.pvp. 🌐 Bloxd World
 
