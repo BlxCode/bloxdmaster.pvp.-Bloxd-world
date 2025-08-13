@@ -7,7 +7,6 @@ api.setItemSlot(playerId, 47, "Diamond Chestplate", 1, {}, true);
 api.setItemSlot(playerId, 48, "Diamond Gauntlets", 1, {}, true);
 api.setItemSlot(playerId, 49, "Diamond Leggings", 1, {}, true);
 api.setItemSlot(playerId, 50, "Diamond Boots", 1, {}, true);
-api.applyEffect(playerId, "Slowness", 5000, { inbuiltLevel: 100 });
 if (onQueue == false) {
   x = Number(
     api.getStandardChestItemSlot([1000, 1009, 1008], 0).attributes
@@ -30,10 +29,9 @@ if (onQueue == false) {
   api.setStandardChestItemSlot([1000, 1009, 1008], 0, "Dirt", 1, undefined, {
     customDisplayName: newXInChest.toString(),
   });
-  if (api.getPlayerIds.length == 1) {
-    api.setClientOptions(myId, {
-      middleTextLower: `You are now in the queue for a 1v1. Estimated wait time: Forever cuz u hav no friends 💀.`,
-    });
+  console.log(api.getPlayerIds().length);
+  if (api.getPlayerIds().length == 1) {
+   
     api.sendMessage(
       myId,
       "You are now in the queue for a 1v1. Estimated wait time: Forever cuz u hav no friends 💀.",
@@ -42,17 +40,13 @@ if (onQueue == false) {
       }
     );
   } else {
-    api.setClientOptions(myId, {
-      middleTextLower: `You are now in the queue for a 1v1. Estimated wait time: ${
-        ((1 / api.getPlayerIds.length) * 5) / 60 + 1
-      } - ${((1 / api.getPlayerIds.length) * 5.5) / 60 + 1} Seconds.`,
-    });
+  
     api.sendMessage(
       myId,
       "You are now in the queue for a 1v1. Estimated wait time: " +
-        (((1 / api.getPlayerIds.length) * 5) / 60 + 1) +
+        (((1 / api.getPlayerIds().length) * 5) / 60 + 1) +
         " - " +
-        (((1 / api.getPlayerIds.length) * 5.5) / 60 + 1) +
+        (((1 / api.getPlayerIds().length) * 5.5) / 60 + 1) +
         " Seconds.",
       {
         color: "green",
@@ -117,7 +111,7 @@ if (onQueue == false) {
       api.setPosition(queue[1], P2posX, 510, 1003.5);
       api.applyEffect(queue[0], "Slowness", 5000, { inbuiltLevel: 100 });
       api.applyEffect(queue[1], "Slowness", 5000, { inbuiltLevel: 100 });
-      api.setCameraDirection(queue[0], [0, 0, 1000.5]);
+      api.setCameraDirection(queue[0], [0, 0, -1000.5]);
       api.setCameraDirection(queue[1], [0, 0, 1019.5]);
       api.setBlockRect(
         [x, 500, 1000.5],

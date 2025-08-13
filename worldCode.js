@@ -8,9 +8,9 @@ var queue = [];
 var playersIn1v1 = [];
 var P1posZ = 1019.5;
 var P2posX;
-var duelRequesters = ["Subscribe to @BloxdMaster!"];
+var duelRequesters = ["-"];
 var P1posX;
-var duelPendings = ["Lorem Ipsum"];
+var duelPendings = ["-"];
 var P2posZ = 1003.5;
 function getRank(playerId) {
   let killCount = api.getMoonstoneChestItemSlot(playerId, 0).attributes
@@ -56,91 +56,8 @@ function getRank(playerId) {
     };
   }
 }
-
-function onPlayerChat(myId, message) {
-  //s0nicblxd from discord for helping me with the custom ranks
-  if (api.getEntityName(myId) == "AncientHotDog1562572") {
-    if (message.startsWith("!")) {
-      if (message == "!help") {
-        api.sendMessage(
-          myId,
-          "Owner Commands: !help, !kill, !clearqueue, !clearQueue, !queue, !heal, !console.log, !yell !setCoins",
-          { color: "lightblue" }
-        );
-        api.sendMessage(
-          myId,
-          `Normal Commands: 
-          !help : Show all commands and what they're for
-          !duelReq <Player Name> : Request a duel with a player
-          !duelAcc : Accepts a duel with the latest person who requested you`,
-          { color: "lightblue" }
-        );
-      }
-      if (message == "!kill") {
-        api.applyHealthChange(myId, -150, myId, true);
-        console.log("the owner is die");
-        if (message.startsWith("!kill ")) {
-          api.setHealth(message.replace("!kill ", ""), 0);
-        }
-      }
-      if (message == "!duelRequests") {
-        console.log(
-          "Duel Pendings: " +
-            duelPendings +
-            "Duel Requesters: " +
-            duelRequesters
-        );
-      }
-      if (message == "!clearqueue") {
-        console.log("Cleared Queue");
-        queue = [];
-      }
-      if (message == "!clearQueue") {
-        console.log("Cleared Queue");
-        queue = [];
-      }
-      if (message == "!queue") {
-        console.log(queue);
-      }
-      if (message == "!heal") {
-        console.log("Healed");
-        api.applyHealthChange(myId, 100000, myId, true);
-      }
-      if (message.includes("!console.log")) {
-        eval(message.replace("!", ""));
-      }
-      if (message.includes("!yell")) {
-        eval(
-          api.broadcastMessage(message.replace("!yell ", ""), {
-            color: "ligbtblue",
-          })
-        );
-      }
-      if (message.includes("!setCoins")) {
-        message.replace("!setCoins ");
-        console.log("You now have" + message.replace("!setCoins ") + "Coins.");
-        api.setMoonstoneChestItemSlot(myId, 2);
-      }
-    } else {
-      api.broadcastMessage([
-        { str: "[", style: { color: "#FED207" } },
-        { icon: "wrench", style: { color: "#FED207" } },
-        { str: " Owners]", style: { color: "#FED207" } },
-        { str: "[", style: { color: getRank(myId).rankColor } },
-        {
-          icon: getRank(myId).rankEmoji,
-          style: { color: getRank(myId).rankColor },
-        },
-        {
-          str: `${getRank(myId).rank}] `,
-          style: { color: getRank(myId).rankColor },
-        },
-        api.getEntityName(myId),
-        { str: ": " + message, style: { color: "#FFFFFF" } },
-      ]);
-    }
-  } else {
-    if (message.startsWith("!")) {
+function commands (message, myId){
+   if (message.startsWith("!")) {
       if (message == "!help") {
         api.sendMessage(
           myId,
@@ -186,13 +103,103 @@ function onPlayerChat(myId, message) {
           );
         }
       }
-      if (message == "!duelAcc" && duelPendings.includes(myId)) {
+       if (message == "!duelAcc" && duelPendings.includes(myId)) {
       } else {
         api.sendMessage(
           myId,
           "You are friendless so no one requested to duel you 💀"
         );
       }
+  
+}
+}
+function onPlayerChat(myId, message) {
+  //s0nicblxd from discord for helping me with the custom ranks
+  if (api.getEntityName(myId) == "AncientHotDog1562572") {
+    if (message.startsWith("!")) {
+      if (message == "!help") {
+        api.sendMessage(
+          myId,
+          "Owner Commands: !help, !kill, !duelRequests, !clearqueue, !clearQueue, !queue, !heal, !console.log, !yell !setCoins",
+          { color: "lightblue" }
+        );
+        api.sendMessage(
+          myId,
+          `Normal Commands: 
+          !help : Show all commands and what they're for
+          !duelReq <Player Name> : Request a duel with a player
+          !duelAcc : Accepts a duel with the latest person who requested you`,
+          { color: "lightblue" }
+        );
+      }
+      if (message == "!kill") {
+        api.applyHealthChange(myId, -150, myId, true);
+        console.log("the owner is die");
+        if (message.startsWith("!kill ")) {
+          api.setHealth(message.replace("!kill ", ""), 0);
+        }
+      }
+      if (message == "!duelRequests") {
+        console.log(
+          "Duel Pendings: " +
+            duelPendings +
+            " Duel Requesters: " +
+            duelRequesters
+        );
+      }
+      if (message == "!clearqueue") {
+        console.log("Cleared Queue");
+        queue = [];
+      }
+      if (message == "!clearQueue") {
+        console.log("Cleared Queue");
+        queue = [];
+      }
+      if (message == "!queue") {
+        console.log(queue);
+      }
+      if (message == "!heal") {
+        console.log("Healed");
+        api.applyHealthChange(myId, 100000, myId, true);
+      }
+      if (message.includes("!console.log")) {
+        eval(message.replace("!", ""));
+      }
+      if (message.includes("!yell")) {
+        eval(
+          api.broadcastMessage(message.replace("!yell ", ""), {
+            color: "ligbtblue",
+          })
+        );
+      }
+      if (message.includes("!setCoins")) {
+        message.replace("!setCoins ");
+        console.log("You now have" + message.replace("!setCoins ") + "Coins.");
+        api.setMoonstoneChestItemSlot(myId, 2);
+      }
+      commands(message, myId);
+    } else {
+      api.broadcastMessage([
+        { str: "[", style: { color: "#FED207" } },
+        { icon: "wrench", style: { color: "#FED207" } },
+        { str: " Owners]", style: { color: "#FED207" } },
+        { str: "[", style: { color: getRank(myId).rankColor } },
+        {
+          icon: getRank(myId).rankEmoji,
+          style: { color: getRank(myId).rankColor },
+        },
+        {
+          str: `${getRank(myId).rank}] `,
+          style: { color: getRank(myId).rankColor },
+        },
+        api.getEntityName(myId),
+        { str: ": " + message, style: { color: "#FFFFFF" } },
+      ]);
+    }
+  } else {
+
+    if (message.startsWith("!")) {
+          commands(message, myId);
     } else {
       api.broadcastMessage([
         { str: "[", style: { color: getRank(myId).rankColor } },
@@ -249,10 +256,7 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
       kills: noCaresKillCount,
       deaths: noCaresDeathCount,
       winRate: noCaresKDRatio,
-      rank: {
-        str: getRank(noCare).rank,
-        style: { color: getRank(noCare).rankColor },
-      },
+        rank: getRank(noCare).rank,
     },
     true
   );
@@ -262,10 +266,7 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
         Kills: ${noCaresKillCount}
         Deaths: ${noCaresDeathCount}
         Games Played: ${Number(noCaresKillCount) + Number(noCaresDeathCount)}
-        Rank: ${{
-          str: getRank(noCare).rank,
-          style: { color: getRank(noCare).rankColor },
-        }}
+        rank: ${getRank(noCare).rank}
         K/D Ratio: ${noCaresKDRatio}
         `,
     canSeeNametagsThroughWalls: false,
@@ -276,10 +277,7 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
         Kills: ${idiosKillCount}
         Deaths: ${idiosDeathCount}
         Games Played: ${Number(idiosKillCount) + Number(idiosDeathCount)}
-        Rank: ${{
-          str: getRank(idio).rank,
-          style: { color: getRank(idio).rankColor },
-        }}
+         rank: ${getRank(idio).rank}
         K/D Ratio: ${idiosKDRatio}
         `,
     canSeeNametagsThroughWalls: false,
@@ -291,10 +289,7 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
       kills: idiosKillCount,
       deaths: idiosDeathCount,
       winRate: idiosKDRatio,
-      rank: {
-        str: getRank(idio).rank,
-        style: { color: getRank(idio).rankColor },
-      },
+        rank:getRank(idio).rank,
     },
     true
   );
@@ -312,15 +307,32 @@ function onPlayerKilledOtherPlayer(noCare, idio, damageDealt, withItem) {
         { color: "red" }
       );
     } else {
+   
       api.broadcastMessage(
         `${noCares} (${noCaresHp} HP) killed ${idios} with a ${withItem}`,
         { color: "red" }
       );
     }
   } else {
-    api.broadcastMessage(`${noCares} committed suicide with a ${withItem}.`, {
+   
+       if(playersIn1v1.includes(noCare)){
+      
+      api.sendMessage(noCare, "You Won the 1v1!", { color: "green" });
+      playersIn1v1.splice(playersIn1v1.indexOf(noCare), 1);
+      playersIn1v1.splice(playersIn1v1.indexOf(idio), 1);
+      api.setPosition(noCare, 999.5, 996, 999.5);
+      api.setCameraDirection(noCare, [0, 0, 10.5]);
+      api.setPosition(idio, 999.5, 996, 999.5);
+      api.setCameraDirection(idio, [0, 0, 10.5]);
+      api.broadcastMessage(
+        `${noCares} killed ${idios} with a ${withItem}, and has won his duel!`,
+        { color: "red" }
+      );
+      }else{
+ api.broadcastMessage(`${noCares} committed suicide with a ${withItem}.`, {
       color: "red",
     });
+      }
   }
   api.setHealth(noCare, 100);
   return true;
@@ -342,7 +354,7 @@ function onRespawnRequest(myId) {
 }
 function onPlayerLeave(playerId) {
   api.broadcastMessage(api.getEntityName(playerId) + " has rage-quit 💀", {
-    color: "#B30404",
+    color: "Red",
   });
   if (queue.includes(playerId)) {
     queue.splice(queue.indexOf(playerId), 1);
@@ -410,7 +422,6 @@ function onPlayerJoin(playerId) {
       canSeeNametagsThroughWalls: false,
     });
   }
-
   if (isPlayer != isBot) {
     api.kickPlayer(
       playerId,
@@ -426,10 +437,8 @@ function onPlayerJoin(playerId) {
     "Hello " +
       api.getEntityName(playerId) +
       `!
-
       Type !help in the chat for avaliable commands. `
   );
-
   api.setItemSlot(playerId, 46, "Diamond Helmet", 1, {}, true);
   api.setItemSlot(playerId, 47, "Diamond Chestplate", 1, {}, true);
   api.setItemSlot(playerId, 48, "Diamond Gauntlets", 1, {}, true);
